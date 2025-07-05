@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Food4U</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+
+    <body>
+        <div id="header">
+            <h1>Food4U</h1>
+            <h2>Aaron Su</h2>
+        </div>
+
+        <div>
+            <div class="slide-left question">
+                <p>I. What kind of cuisine are you craving?</p>
+                <select id="cuisine">
+                    <option value="Chinese">Chinese</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Indonesian">Indonesian</option>
+                    <option value="Western">Western</option>
+                </select>
+            </div>
+            <div class="slide-right question">
+                <p>II. Got a budget in mind?</p>
+                <select id="price">
+                    <option value="$">$</option>
+                    <option value="$$">$$</option>
+                    <option value="$$$">$$$</option>
+                </select>
+            </div>
+            <div class="slide-left question">
+                <p>III. Where do you feel like spending your time at?</p>
+                <select id="location">
+                    <option value="BSD City">BSD City</option>
+                    <option value="Alam Sutera">Alam Sutera</option>
+                    <option value="Gading Serpong">Gading Serpong</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="result"></div>
+        <button class="fade-up" id="decideBtn">Decide for Me!</button>
+        <script src="script.js"></script>
+
+        <footer>
+            <div class="socials">
+                <a href="https://github.com/AyayronSu" target="_blank">
+                <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/aaron-sujana-06b028300/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/yourusername" target="_blank">
+                <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </footer>
+
+
+    </body>
+
+</html>
