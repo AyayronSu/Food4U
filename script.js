@@ -45,32 +45,122 @@ const restaurants = [
 
 ];
 
+let pick = null;
+const savedFavorites = localStorage.getItem("favorites");
+const favorites = savedFavorites ? JSON.parse(savedFavorites) : [];
+
+const resultDiv = document.getElementById("result");
+const list = document.getElementById("favoritesList");
+const decideBtn = document.getElementById("decideBtn");
+const saveBtn = document.getElementById("saveFavoritesBtn");
+saveBtn.disabled = true;
+const viewBtn = document.getElementById("viewFavoritesBtn");
+const favoritesPanel = document.getElementById("favorites");
+
+updateFavoritesList();
+
+function updateFavoritesList() {
+  list.innerHTML = "";
+  if (favorites.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "No favorites yet.";
+    list.appendChild(li);
+    return;
+  }
+  favorites.forEach((fav, index) => {
+    const li = document.createElement("li");
+    li.textContent = fav.name;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    removeBtn.style.marginLeft = "10px";
+    removeBtn.onclick = () => {
+      favorites.splice(index, 1);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      updateFavoritesList();
+    };
+
+    li.appendChild(removeBtn);
+    list.appendChild(li);
+  });
+}
+
+
 function decide() {
-  const resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = ""; // Clear old
+  resultDiv.innerHTML = "";
   resultDiv.classList.remove("show");
 
   const cuisine = document.getElementById("cuisine").value;
   const price = document.getElementById("price").value;
   const location = document.getElementById("location").value;
 
+  if (!cuisine || !price || !location) {
+    resultDiv.innerHTML = "Please choose all options.";
+    resultDiv.classList.add("show");
+    return;
+  }
+
   const matches = restaurants.filter(r =>
-    r.cuisine === cuisine &&
-    r.price === price &&
-    r.location === location
+    r.cuisine === cuisine && r.price === price && r.location === location
   );
 
-  const pick = matches[Math.floor(Math.random() * matches.length)];
-
-  resultDiv.innerHTML = pick ? pick.name : "No match found!";
-
-  // Force reflow here!
-  void resultDiv.offsetWidth;
+  if (matches.length === 0) {
+    pick = null;
+    resultDiv.innerHTML = "No match found!";
+  } else if (matches.length === 1) {
+    pick = matches[0];
+    resultDiv.innerHTML = `✅ ${pick.name}`;
+  } else {
+    let newPick;
+    do {
+      newPick = matches[Math.floor(Math.random() * matches.length)];
+    } while (newPick.name === pick?.name && matches.length > 1);
+    pick = newPick;
+    resultDiv.innerHTML = `✅ ${pick.name}`;
+  }
 
   resultDiv.classList.add("show");
+  if (pick) {
+  saveBtn.disabled = false;
+} else {
+  saveBtn.disabled = true;
+}
 }
 
+function saveFavorite() {
+  if (pick && pick.name) {
+    if (!favorites.some(f => f.name === pick.name)) {
+      favorites.push(pick);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      updateFavoritesList();
+      resultDiv.innerHTML = `⭐ ${pick.name} added to favorites!`;
+      resultDiv.classList.add("show");
+    } else {
+      resultDiv.innerHTML = `${pick.name} is already in favorites!`;
+      resultDiv.classList.add("show");
+    }
+  } else {
+    resultDiv.innerHTML = "Pick a restaurant first!";
+    resultDiv.classList.add("show");
+  }
+}
+
+decideBtn.addEventListener("click", decide);
+saveBtn.addEventListener("click", saveFavorite);
+document.getElementById("tryAgainBtn").addEventListener("click", () => {
+  resultDiv.innerHTML = "";
+  resultDiv.classList.remove("show");
+  pick = null;
+  decide();
+});
+document.getElementById("clearFavoritesBtn").addEventListener("click", () => {
+  favorites.length = 0; // Clear array
+  localStorage.removeItem("favorites");
+  updateFavoritesList();
+});
 
 
-document.getElementById("decideBtn").addEventListener("click", decide);
-
+// Toggle the slide in/out by adding/removing a class
+viewBtn.addEventListener("click", () => {
+  favoritesPanel.classList.toggle("open");
+});

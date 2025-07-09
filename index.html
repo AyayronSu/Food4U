@@ -1,67 +1,73 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>
-        <title>Food4U</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Food4U</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <header id="header">
+    <h1>Food4U</h1>
+  </header>
 
-    <body>
-        <div id="header">
-            <h1>Food4U</h1>
-            <h2>Aaron Su</h2>
-        </div>
+  <main>
+    <section class="question slide-left">
+      <p>I. What kind of cuisine are you craving?</p>
+      <select id="cuisine">
+        <option value="" disabled selected>Select Cuisine</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Indonesian">Indonesian</option>
+        <option value="Western">Western</option>
+      </select>
+    </section>
 
-        <div>
-            <div class="slide-left question">
-                <p>I. What kind of cuisine are you craving?</p>
-                <select id="cuisine">
-                    <option value="Chinese">Chinese</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="Indonesian">Indonesian</option>
-                    <option value="Western">Western</option>
-                </select>
-            </div>
-            <div class="slide-right question">
-                <p>II. Got a budget in mind?</p>
-                <select id="price">
-                    <option value="$">$</option>
-                    <option value="$$">$$</option>
-                    <option value="$$$">$$$</option>
-                </select>
-            </div>
-            <div class="slide-left question">
-                <p>III. Where do you feel like spending your time at?</p>
-                <select id="location">
-                    <option value="BSD City">BSD City</option>
-                    <option value="Alam Sutera">Alam Sutera</option>
-                    <option value="Gading Serpong">Gading Serpong</option>
-                </select>
-            </div>
-        </div>
+    <section class="question slide-right">
+      <p>II. Got a budget in mind?</p>
+      <select id="price">
+        <option value="" disabled selected>Select Budget</option>
+        <option value="$">$</option>
+        <option value="$$">$$</option>
+        <option value="$$$">$$$</option>
+      </select>
+    </section>
 
-        <div id="result"></div>
-        <button class="fade-up" id="decideBtn">Decide for Me!</button>
-        <script src="script.js"></script>
+    <section class="question slide-left">
+      <p>III. Where do you feel like spending your time?</p>
+      <select id="location">
+        <option value="" disabled selected>Select Location</option>
+        <option value="BSD City">BSD City</option>
+        <option value="Alam Sutera">Alam Sutera</option>
+        <option value="Gading Serpong">Gading Serpong</option>
+      </select>
+    </section>
 
-        <footer>
-            <div class="socials">
-                <a href="https://github.com/AyayronSu" target="_blank">
-                <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/aaron-sujana-06b028300/" target="_blank">
-                <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://www.instagram.com/yourusername" target="_blank">
-                <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-        </footer>
+    <div id="result" aria-live="polite" class="result-box"></div>
+    <div id="saveMessage" style="color: lightgreen; text-align: center; margin-top: 10px;"></div>
 
+    <button id="decideBtn" class="fade-up">Decide for Me!</button>
+    <button class="fade-up" id="tryAgainBtn">Try Again</button>
+    <button id="saveFavoritesBtn">Save to Favorites</button>
+    <button id="viewFavoritesBtn">View Favorites</button>
+    <button id="clearFavoritesBtn">Clear All Favorites</button>
+  </main>
 
-    </body>
+  <footer>
+    <h2>Aaron Su</h2>
+    <nav class="socials">
+      <a href="https://github.com/AyayronSu" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/aaron-sujana-06b028300/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/aaron_sujana/" target="_blank"><i class="fab fa-instagram"></i></a>
+    </nav>
+  </footer>
 
+  <aside id="favorites" class="favorites-panel">
+    <h3>Your Favorites</h3>
+    <ul id="favoritesList"></ul>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
 </html>
